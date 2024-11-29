@@ -70,7 +70,7 @@ class MainApp:
 
     def manage_guard(self):
         try:
-            subprocess.Popen(["python", "guard.py"])  # Change to "python3" if using Python 3 on Unix-based systems
+            subprocess.Popen(["python", "guard.py"])  
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open Owner.py: {e}")
 
