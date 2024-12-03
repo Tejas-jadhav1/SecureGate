@@ -47,24 +47,29 @@ class MainApp:
 
         # Help menu
         help_menu = Menu(menubar, tearoff=0)
-        help_menu.add_command(label="About", command=self.about_action)
-        menubar.add_cascade(label="Help", menu=help_menu)
+        help_menu.add_command(label="Date_Wise")
+        help_menu.add_command(label="Flat_Wise",command=self.flat_report)
+        help_menu.add_command(label="Month_Wise")
+
+        menubar.add_cascade(label="Report", menu=help_menu)
 
         # Attach the menu to the root window
         self.root.config(menu=menubar)
 
+
+
+    
     def Manage_owner(self):
         # Run Owner.py as a separate script
         try:
-            subprocess.Popen(["python", "Owner.py"])  # Change to "python3" if using Python 3 on Unix-based systems
+            subprocess.Popen(["python", "Owner.py"])  
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open Owner.py: {e}")
 
-    # Sample action methods for the menu options
+    
     def open_action(self):
-        # Run Owner.py as a separate script
         try:
-            subprocess.Popen(["python", "view_owner.py"])  # Change to "python3" if using Python 3 on Unix-based systems
+            subprocess.Popen(["python", "view_owner.py"])  
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open view_owner.py: {e}")
 
@@ -76,11 +81,12 @@ class MainApp:
 
     def view_guard(self):
         try:
-            subprocess.Popen(["python", "view_guard.py"])  # Change to "python3" if using Python 3 on Unix-based systems
+            subprocess.Popen(["python", "view_guard.py"])  
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open view_owner.py: {e}")
 
-    def about_action(self):
+    def date_action(self):
+        
         messagebox.showinfo("About", "This is an admin section application with a custom menubar.")
 
 # Main execution

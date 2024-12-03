@@ -200,9 +200,9 @@ class MasterEntryForm(tk.Tk):
         cur = db_conn.cursor()
         query = ""
         if search_type == "Guard_no":
-            query = "SELECT * FROM SignUp WHERE id LIKE ?"
+            query = "SELECT * FROM SignUp WHERE id LIKE ? AND type = 'Guard'"
         elif search_type == "name":
-            query = "SELECT * FROM SignUp WHERE username LIKE ?"
+            query = "SELECT * FROM SignUp WHERE username LIKE ? AND type = 'Guard'"
 
         try:
             cur.execute(query, ('%' + search_value + '%',))

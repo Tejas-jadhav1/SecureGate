@@ -37,5 +37,22 @@ def owner_database():
         member TEXT NOT NULL
     );
     ''')
+
+    # Create 'visitor' table with foreign key relationship
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS visitor (
+            visitor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            tot_person INTEGER NOT NULL,
+            date TEXT NOT NULL,
+            mob_num TEXT NOT NULL,
+            time TEXT NOT NULL,
+            remark TEXT NOT NULL,
+            flat_id INTEGER NOT NULL,
+            FOREIGN KEY (flat_id) REFERENCES flat_owner (flat_id)
+        );
+    ''')
+
+
     conn.commit()
     conn.close()

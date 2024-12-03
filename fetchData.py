@@ -12,7 +12,7 @@ for table in tables:
     print(table[0])  # Print each table name
 
 # Example: Retrieve and print all users from the SignUp table
-cur.execute("SELECT * FROM SignUp")  # Assuming SignUp is a valid table
+cur.execute("SELECT * FROM Signup")  # Assuming SignUp is a valid table
 rows = cur.fetchall()
 print("\nSignUp Table Data:")
 for row in rows:

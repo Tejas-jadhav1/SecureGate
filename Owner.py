@@ -3,7 +3,7 @@ import tkinter.messagebox as messagebox
 
 import conn
 from conn import owner_database
-
+import re
 
 class MasterEntryForm(tk.Tk):
     flag=1
@@ -31,31 +31,53 @@ class MasterEntryForm(tk.Tk):
         self.bid_code_entry = tk.Entry(self.emp_info_panel, font=("Arial", 12))
         self.bid_code_entry.place(x=90, y=20)
 
+
+
+        def validate_name(input_value):
+            if all(char.isalpha() or char.isspace() for char in input_value):
+                return True
+            return False
+
+        
         # Name
         self.name_label = tk.Label(self.emp_info_panel, text="Name:", font=("Arial", 12), bg="white")
         self.name_label.place(x=30, y=60)
-        self.name_entry = tk.Entry(self.emp_info_panel, font=("Arial", 12))
+        
+        validate_command = self.register(validate_name)  
+        self.name_entry = tk.Entry(self.emp_info_panel, font=("Arial", 12), validate="key", validatecommand=(validate_command, "%P"))
         self.name_entry.place(x=90, y=60)
 
         # Members (Designation)
         self.designation_label = tk.Label(self.emp_info_panel, text="Members:", font=("Arial", 12), bg="white")
         self.designation_label.place(x=15, y=100)
-        self.members_entry = tk.Entry(self.emp_info_panel, font=("Arial", 12))  # New Entry for Members
+
+
+        def validate_member(input_value):
+            if input_value.isdigit() or input_value == "":
+                return True  
+            return False
+        
+        val_member = self.register(validate_member)
+        self.members_entry = tk.Entry(self.emp_info_panel, font=("Arial", 12), validate="key", validatecommand=(val_member, '%P'))  # New Entry for Members
         self.members_entry.place(x=90, y=100)
 
         # Mobile Number
         self.mob_label = tk.Label(self.emp_info_panel, text="Mob No:", font=("Arial", 12), bg="white")
         self.mob_label.place(x=260, y=20)
 
-        # Function to allow only numeric input and limit the size to 10 digits
+        
         def on_validate_mobile_number(input_value):
-            if input_value.isdigit() or input_value == "":  # Only digits allowed
-                if len(input_value) <= 10:  # Limit input to 10 digits
+            if input_value.isdigit() or input_value == "":  
+                if len(input_value) <= 10:  
                     return True
                 else:
                     return False
             else:
                 return False
+
+
+        
+
 
         # Register validation function for mobile number entry
         validate_mobile = self.register(on_validate_mobile_number)
@@ -131,13 +153,17 @@ class MasterEntryForm(tk.Tk):
         self.search_panel.place_forget()
         self.operations_panel.place(x=30, y=260, width=550, height=210)
 
+
+
+
+
     # Placeholder Functions for Buttons
     def save_data(self):
         db_conn = conn.create_connection()
         cur = db_conn.cursor()
 
         try:
-            owner_database()  # Ensure database and table creation
+            owner_database()  
         except Exception as e:
             print(e)
 
@@ -147,7 +173,11 @@ class MasterEntryForm(tk.Tk):
         mob = self.mob_entry.get()
         member = self.members_entry.get()
 
-        if flat and name and mail and mob and member:
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        if not re.match(email_regex,mail):
+            messagebox.showerror("Error","Invalid Mail Please add correct mail")
+            
+        elif flat and name and mail and mob and member:
             try:
                 cur.execute("INSERT INTO flat_owner (flat_id,name,email,mobile,member) VALUES (?, ?, ?, ?, ?)", 
                             (flat, name, mail, mob, member))

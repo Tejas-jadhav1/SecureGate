@@ -1,7 +1,7 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from main import * # Import MainApp from main.py
+from main import * 
 
 
 import tkinter as tk
@@ -10,7 +10,7 @@ from tkinter import messagebox, simpledialog, ttk
 
 import random
 import sqlite3
-import conn  # Import the conn module for database operations
+import conn  
 import re
 
 class SecureGate:
@@ -155,8 +155,11 @@ class SecureGate:
             if user:
                 messagebox.showinfo("Success", f"Welcome, {user_type} {email}!")
                 self.root.destroy()
-                main_root = tk.Tk()
-                MainApp(main_root)
+                if user_type=="Admin":
+                    subprocess.Popen(["python", "main.py"]) 
+                else:
+                    subprocess.Popen(["python", "Guard_panel.py"])
+                
             else:
                 messagebox.showinfo("Error", "Invalid credentials or user type!")
             
