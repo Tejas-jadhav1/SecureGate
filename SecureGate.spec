@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['SecureGate.bat'],
+    ['securegate.bat'],
     pathex=[],
     binaries=[],
-    datas=[('C:\\SecureGate', '.')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='SecureGate',
+    name='securegate',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

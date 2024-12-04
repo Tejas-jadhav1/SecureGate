@@ -5,7 +5,7 @@ a = Analysis(
     ['tryLogin.py'],
     pathex=[],
     binaries=[],
-    datas=[('C:\\SecureGate', '.')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

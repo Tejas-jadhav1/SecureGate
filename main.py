@@ -57,10 +57,14 @@ class MainApp:
         self.root.config(menu=menubar)
 
 
+    def flat_report(self):
+        try:
+            subprocess.Popen(["python", "flat_rep.py"])  
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to open Owner.py: {e}")
 
-    
+
     def Manage_owner(self):
-        # Run Owner.py as a separate script
         try:
             subprocess.Popen(["python", "Owner.py"])  
         except Exception as e:
